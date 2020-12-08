@@ -5,4 +5,30 @@ CREATE TABLE movies (
     url TEXT NOT NULL
 );
 
+CREATE TABLE books (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    url TEXT NOT NULL
+);
 
+CREATE TABLE cars (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    url TEXT NOT NULL
+);
+
+CREATE TABLE foods (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    url TEXT NOT NULL
+);
+
+CREATE TABLE vegetables (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    url TEXT NOT NULL
+);
