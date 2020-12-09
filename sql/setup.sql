@@ -3,12 +3,20 @@ DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS cars;
 DROP TABLE IF EXISTS foods;
 DROP TABLE IF EXISTS vegetables;
+DROP TABLE IF EXISTS beverages;
 
 CREATE TABLE movies (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT,
     url TEXT NOT NULL
+);
+
+CREATE TABLE beverages (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    cold BOOLEAN
 );
 
 CREATE TABLE books (
