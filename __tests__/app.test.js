@@ -2,6 +2,7 @@ const fs = require('fs');
 const request = require('supertest');
 const app = require('../index');
 const Movie = require('../lib/utils/models/Movie');
+const Beverage = require('../lib/utils/models/Beverage');
 const pool = require('../lib/utils/pool');
 
 describe('app tests', () => {
@@ -93,5 +94,89 @@ describe('app tests', () => {
 
     expect(response.body).toEqual(movie);
   });
+
+  // creating dev branch for Beverage class, and tests will go here: 
+
+  it('creates a beverage via POST', async() => {
+    const response = await request(app)
+      .post('/beverages')
+      .send({
+        title: 'water',
+        description: 'wet',
+        cold: true
+      });
+
+    expect(response.body).toEqual({
+      id: '1',
+      title: 'water',
+      description: 'wet',
+      cold: true
+    });
+  });
+
+  it('finds all beverages via GET', async() => {
+    await Beverage.insert({
+      title: 'beer',
+      description: 'lager',
+      cold: true
+    });
+
+    const response = await request(app)
+      .get('/beverages');
+
+    expect(response.body).toEqual([{
+      id: '1',
+      title: 'beer',
+      description: 'lager',
+      cold: true
+    }]);
+  });
+
+  it('finds a beverage by id via GET', async() => {
+    const beverage = await Beverage.insert({ 
+      title: 'coffee', 
+      description: 'Guatemalan', 
+      cold: false });
+
+    const response = await request(app)
+      .get(`/beverages/${beverage.id}`);
+
+    expect(response.body).toEqual(beverage);
+  });
+
+  it('updates a beverage by id via PUT', async() => {
+    const beverage = await Beverage.insert({
+      title: 'tea', 
+      description: 'black', 
+      cold: false });
+
+    const response = await request(app)
+      .put(`/beverages/${beverage.id}`)
+      .send({
+        title: 'tea',
+        description: 'green',
+        cold: true
+      });
+
+    expect(response.body).toEqual({
+      ...beverage,
+      title: 'tea',
+      description: 'green',
+      cold: true
+    });
+  });
+
+  it('deletes a beverage by id via DELETE', async() => {
+    const beverage = await Beverage.insert({ 
+      title: 'wine - DELETE ME PLZ', 
+      description: 'red', 
+      cold: true });
+
+    const response = await request(app)
+      .delete(`/beverages/${beverage.id}`);
+
+    expect(response.body).toEqual(beverage);
+  });
+
 
 });
