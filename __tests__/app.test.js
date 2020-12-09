@@ -94,6 +94,6 @@ describe('app tests', () => {
     expect(response.body).toEqual(movie);
   });
 
-  // creating dev branch for Car class, and tests will go here: 
+  // creating dev branch for Beverage class, and tests will go here: 
 
 });
