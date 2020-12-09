@@ -1,15 +1,42 @@
 require('dotenv').config();
+const express = require('express');
+const app = express();
+
+app.use(express.json());
 
 const Movie = require('./lib/utils/models/Movie.js');
 
-// const express = require('express');
-// const app = express();
+app.post('/movies', (req, res) => {
+  Movie
+    .insert(req.body) 
+    .then(movie => res.send(movie));
+});
 
-// app.use(express.json());
+app.get('/movies', (req, res) => {
+  Movie
+    .find()
+    .then(movie => res.send(movie));
+});
 
-Movie
-  .find() 
-  .then(console.log);
+app.get('/movies/:id', (req, res) => {
+  Movie
+    .findById(req.params.id)
+    .then(movie => res.send(movie));
+});
 
-// app.listen('5432', () => { console.log('listening on port 5432') })
+app.put('/movies/:id', (req, res) => {
+  Movie
+    .update(req.params.id, req.body)
+    .then(movie => res.send(movie));
+});
+
+app.delete('/movies/:id', (req, res) => {
+  Movie
+    .delete(req.params.id)
+    .then(movie => res.send(movie));
+});
+
+module.exports = app;
+
+// app.listen('5432', () => { console.log('listening on port 5432'); });
 
