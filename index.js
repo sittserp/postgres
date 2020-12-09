@@ -38,5 +38,4 @@ app.delete('/movies/:id', (req, res) => {
 
 module.exports = app;
 
-// app.listen('5432', () => { console.log('listening on port 5432'); });
 
